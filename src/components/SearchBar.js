@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const SearchBar = React.createClass({
-  getInitialState () {
-    return {
-      keywords: 'Hello!'
+class SearchBar extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      keywords: ''
     }
-  },
+  }
 
   handleChange (e) {
     this.setState({ keywords: e.target.value })
-  },
+  }
 
   search (e) {
     e.preventDefault()
-  },
+  }
 
   render() {
     return (
@@ -33,6 +35,6 @@ const SearchBar = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default SearchBar
