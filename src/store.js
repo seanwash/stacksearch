@@ -8,8 +8,8 @@ const emitter = new EventEmitter()
 let store = {
   apiBaseUrl: 'https://api.stackexchange.com/2.2/',
   keywords: 'react',
-  searchResults: data,
-  answers: [],
+  searchResults: data.questions,
+  answers: data.answers,
   selectedQuestion: {}
 }
 

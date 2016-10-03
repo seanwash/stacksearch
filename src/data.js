@@ -1,4 +1,4 @@
-export default [
+const questions = [
   {
     "tags": [
       "reactjs",
@@ -759,3 +759,200 @@ export default [
     "title": "React Native table view not getting populated"
   }
 ]
+
+const answers = [
+  {
+    "owner": {
+      "reputation": 81,
+      "user_id": 3205633,
+      "user_type": "registered",
+      "accept_rate": 20,
+      "profile_image": "https://www.gravatar.com/avatar/803bfb6abf808f8dfd3a76f18f25988a?s=128&d=identicon&r=PG&f=1",
+      "display_name": "Softwareddy",
+      "link": "http://stackoverflow.com/users/3205633/softwareddy"
+    },
+    "up_vote_count": 2,
+    "is_accepted": false,
+    "score": 2,
+    "last_activity_date": 1475428180,
+    "last_edit_date": 1475428180,
+    "creation_date": 1473717628,
+    "answer_id": 39459438,
+    "question_id": 31079081,
+    "body": "<p>For ES6 + React components, the following solution worked for me.</p>\n\n<p>I followed Felippe skinner, but added an end to end solution to help beginners like me.</p>\n\n<p>Below are the versions I used:</p>\n\n<blockquote>\n  <p>\"react-router\": \"^2.7.0\"</p>\n  \n  <p>\"react\": \"^15.3.1\"</p>\n</blockquote>\n\n<p>Below is my react component where I used programmatic navigation using react-router:</p>\n\n<pre><code>import React from 'react';\n\nclass loginComp extends React.Component {\n   constructor( context) {\n    super(context);\n    this.state = {\n      uname: '',\n      pwd: ''\n    };\n  }\n\n  redirectToMainPage(){\n        this.context.router.replace('/home');\n  }\n\n  render(){\n    return &lt;div&gt;\n           // skipping html code \n             &lt;button onClick={this.redirectToMainPage.bind(this)}&gt;Redirect&lt;/button&gt;\n    &lt;/div&gt;;\n  }\n};\n\n loginComp.contextTypes = {\n    router: React.PropTypes.object.isRequired\n }\n\n module.exports = loginComp;\n</code></pre>\n\n<p><strong>Below is the configuration for my router:</strong></p>\n\n<pre><code> import { Router, Route, IndexRedirect, browserHistory } from 'react-router'\n\n render(&lt;Router history={browserHistory}&gt;\n          &lt;Route path='/' component={ParentComp}&gt;\n            &lt;IndexRedirect to = \"/login\"/&gt;\n            &lt;Route path='/login' component={LoginComp}/&gt;\n            &lt;Route path='/home' component={HomeComp}/&gt;\n            &lt;Route path='/repair' component={RepairJobComp} /&gt;\n            &lt;Route path='/service' component={ServiceJobComp} /&gt;\n          &lt;/Route&gt;\n        &lt;/Router&gt;, document.getElementById('root'));\n</code></pre>\n"
+  },
+  {
+    "owner": {
+      "reputation": 482,
+      "user_id": 2940802,
+      "user_type": "registered",
+      "profile_image": "https://i.stack.imgur.com/rXdd3.jpg?s=128&g=1",
+      "display_name": "Jos&#233; Antonio Postigo",
+      "link": "http://stackoverflow.com/users/2940802/jos%c3%a9-antonio-postigo"
+    },
+    "up_vote_count": 0,
+    "is_accepted": false,
+    "score": 0,
+    "last_activity_date": 1475150673,
+    "creation_date": 1475150673,
+    "answer_id": 39769838,
+    "question_id": 31079081,
+    "body": "<p>With the current React version (15.3), <code>this.props.history.push('/location');</code> worked for me, but it showed the following warning:</p>\n\n<blockquote>\n  <p>browser.js:49 Warning: [react-router] <code>props.history</code> and\n  <code>context.history</code> are deprecated. Please use <code>context.router</code>.</p>\n</blockquote>\n\n<p>and I solved it using <code>context.router</code> like this:</p>\n\n<pre><code>import React from 'react';\n\nclass MyComponent extends React.Component {\n\n    constructor(props) {\n        super(props);\n        this.backPressed = this.backPressed.bind(this);\n    }\n\n    backPressed() {\n        this.context.router.push('/back-location');\n    }\n\n    ...\n}\n\nMyComponent.contextTypes = {\n    router: React.PropTypes.object.isRequired\n};\n\nexport default MyComponent;\n</code></pre>\n"
+  },
+  {
+    "owner": {
+      "reputation": 164,
+      "user_id": 5112901,
+      "user_type": "registered",
+      "profile_image": "https://i.stack.imgur.com/3wSiF.jpg?s=128&g=1",
+      "display_name": "mcku",
+      "link": "http://stackoverflow.com/users/5112901/mcku"
+    },
+    "up_vote_count": 0,
+    "is_accepted": false,
+    "score": 0,
+    "last_activity_date": 1475011941,
+    "creation_date": 1475011941,
+    "answer_id": 39734641,
+    "question_id": 31079081,
+    "body": "<p>May not be the best approach but... Using react-router v4, the following Typescript could give an idea for some. </p>\n\n<p>In the rendered component below, e.g. <code>LoginPage</code>, <code>router</code> object is accessible and just call <code>router.transitionTo('/homepage')</code> to navigate.</p>\n\n<p>Navigation code was taken from <a href=\"https://react-router.now.sh/Match\" rel=\"nofollow\">https://react-router.now.sh/Match</a>.  </p>\n\n<p><code>\"react-router\": \"^4.0.0-2\",</code>\n<code>\"react\": \"^15.3.1\",</code></p>\n\n<p><div class=\"snippet\" data-lang=\"js\" data-hide=\"false\" data-console=\"true\" data-babel=\"false\">\r\n<div class=\"snippet-code\">\r\n<pre class=\"snippet-code-js lang-js prettyprint-override\"><code>import Router from 'react-router/BrowserRouter';\r\nimport { History } from 'react-history/BrowserHistory';\r\nimport createHistory from 'history/createBrowserHistory';\r\nconst history = createHistory();\r\n\r\ninterface MatchWithPropsInterface {\r\n  component: typeof React.Component,\r\n  router: Router,\r\n  history: History,\r\n  exactly?: any,\r\n  pattern: string\r\n}\r\n\r\nclass MatchWithProps extends React.Component&lt;MatchWithPropsInterface,any&gt; {\r\n  render() {\r\n    return(\r\n      &lt;Match {...this.props} render={(matchProps) =&gt; (\r\n             React.createElement(this.props.component, this.props)\r\n\r\n        )}\r\n       /&gt;\r\n    )\r\n  }\r\n}\r\n\r\nReactDOM.render(\r\n    &lt;Router&gt;\r\n      {({ router }) =&gt; (\r\n        &lt;div&gt;\r\n          &lt;MatchWithProps exactly pattern=\"/\" component={LoginPage} router={router} history={history} /&gt;\r\n          &lt;MatchWithProps pattern=\"/login\" component={LoginPage} router={router} history={history} /&gt;\r\n          &lt;MatchWithProps pattern=\"/homepage\" component={HomePage} router={router} history={history} /&gt;\r\n          &lt;Miss component={NotFoundView} /&gt;\r\n        &lt;/div&gt;\r\n      )}\r\n    &lt;/Router&gt;,\r\n\r\n   document.getElementById('app')\r\n);</code></pre>\r\n</div>\r\n</div>\r\n</p>\n"
+  },
+  {
+    "owner": {
+      "reputation": 36,
+      "user_id": 742136,
+      "user_type": "registered",
+      "profile_image": "https://www.gravatar.com/avatar/ed316c83afeb41de7011068f1f7f0b1f?s=128&d=identicon&r=PG",
+      "display_name": "uni_nake",
+      "link": "http://stackoverflow.com/users/742136/uni-nake"
+    },
+    "up_vote_count": 1,
+    "is_accepted": false,
+    "score": 1,
+    "last_activity_date": 1473926445,
+    "creation_date": 1473926445,
+    "answer_id": 39505911,
+    "question_id": 31079081,
+    "body": "<p>with React-Router v4 on the horizon, there is now a new way of doing this.</p>\n\n<pre><code>import { MemoryRouter, BrowserRouter } from 'react-router';\n\nconst navigator = global &amp;&amp; global.navigator &amp;&amp; global.navigator.userAgent;\nconst hasWindow = typeof window !== 'undefined';\nconst isBrowser = typeof navigator !== 'undefined' &amp;&amp; navigator.indexOf('Node.js') === -1;\nconst Router = isBrowser ? BrowserRouter : MemoryRouter;\n\n&lt;Rooter location=\"/page-to-go-to\"/&gt;\n</code></pre>\n\n<p><a href=\"https://github.com/peter-mouland/react-lego\" rel=\"nofollow\">react-lego</a> is an example app that shows <a href=\"https://github.com/peter-mouland/react-lego/compare/react-router-4\" rel=\"nofollow\">how to use/update react-router</a> and it includes example functional tests which navigate the app.</p>\n"
+  },
+  {
+    "owner": {
+      "reputation": 1,
+      "user_id": 4860878,
+      "user_type": "registered",
+      "profile_image": "https://www.gravatar.com/avatar/a86881368a775490769c04f5165b723a?s=128&d=identicon&r=PG&f=1",
+      "display_name": "Yossi Cadaner",
+      "link": "http://stackoverflow.com/users/4860878/yossi-cadaner"
+    },
+    "up_vote_count": 0,
+    "is_accepted": false,
+    "score": -8,
+    "last_activity_date": 1467405161,
+    "last_edit_date": 1467405161,
+    "creation_date": 1467399437,
+    "answer_id": 38152282,
+    "question_id": 31079081,
+    "body": "<p>You can use </p>\n\n<pre><code>document.location.hash = 'path'\n</code></pre>\n\n<p>Notes:</p>\n\n<ul>\n<li>This is a static string path. </li>\n<li>The history is appended properly with this.</li>\n</ul>\n"
+  },
+  {
+    "owner": {
+      "reputation": 3854,
+      "user_id": 1603820,
+      "user_type": "registered",
+      "profile_image": "https://www.gravatar.com/avatar/c60ff2b7d6c73306ed8c40418093d111?s=128&d=identicon&r=PG",
+      "display_name": "Felipe Skinner",
+      "link": "http://stackoverflow.com/users/1603820/felipe-skinner"
+    },
+    "up_vote_count": 236,
+    "is_accepted": false,
+    "score": 236,
+    "last_activity_date": 1464065434,
+    "last_edit_date": 1464065434,
+    "creation_date": 1435340979,
+    "answer_id": 31079244,
+    "question_id": 31079081,
+    "body": "<blockquote>\n  <p><strong>React-Router 2.4.0+</strong> Answer</p>\n</blockquote>\n\n<p>In 2.4 and above, use a higher order component to get the router as a prop of your component.</p>\n\n<pre><code>import { withRouter } from 'react-router'\n\nclass Example extends React.Component {\n   // use `this.props.router.push('/some/path')` here\n};\n\n// Export the decorated class\nvar DecoratedExample = withRouter(Example);\n\n// PropTypes\nExample.propTypes = {\n  router: React.PropTypes.shape({\n    push: React.PropTypes.func.isRequired\n  }).isRequired\n};\n</code></pre>\n\n<blockquote>\n  <p><strong>React-Router 2.0.0+</strong> Answer</p>\n</blockquote>\n\n<p>This version is backwards compatible with 1.x so there's no need to an Upgrade Guide. Just going through the examples should be good enough.</p>\n\n<p>That said, if you wish to switch to the new pattern, there's a browserHistory module inside the router that you can access with</p>\n\n<p><code>import { browserHistory } from 'react-router'</code></p>\n\n<p>Now you have access to your browser history, so you can do things like push, replace, etc... Like:</p>\n\n<p><code>browserHistory.push('/some/path')</code></p>\n\n<p>Further reading:\n<a href=\"https://github.com/reactjs/react-router/blob/latest/docs/guides/Histories.md\">Histories</a> and\n<a href=\"https://github.com/reactjs/react-router/blob/latest/docs/guides/NavigatingOutsideOfComponents.md\">Navigation</a></p>\n\n<hr>\n\n<blockquote>\n  <p><strong>React-Router 1.x.x</strong> Answer</p>\n</blockquote>\n\n<p>I will not go into upgrading details. You can read about that in the <a href=\"https://github.com/rackt/react-router/blob/master/upgrade-guides/v1.0.0.md\">Upgrade Guide</a></p>\n\n<p>The main change about the question here is the change from Navigation mixin to History. Now it's using the browser historyAPI to change route so we will use <code>pushState()</code> from now on.</p>\n\n<p>Here's an exemple using Mixin:</p>\n\n<pre><code>var Example = React.createClass({\n  mixins: [ History ],\n  navigateToHelpPage () {\n    this.history.pushState(null, `/help`);\n  }\n})\n</code></pre>\n\n<p>Note that this <code>History</code> comes from <a href=\"https://github.com/rackt/history\">rackt/history</a> project. Not from React-Router itself.</p>\n\n<p>If you dont want to use Mixin for some reasonn (maybe because of ES6 class), then you can access the history that you get from the router from <code>this.props.history</code>. It will be only accessible for the components rendered by your Router. So, if you want to use it in any child components it needs to be passed down as an attribute via <code>props</code>.</p>\n\n<p>You can read more about the new release at their <a href=\"https://github.com/rackt/react-router/tree/1.0.x/docs\">1.0.x documentation</a></p>\n\n<p>Here is <a href=\"https://github.com/rackt/react-router/blob/1.0.x/docs/guides/advanced/NavigatingOutsideOfComponents.md\">a help page specifically about navigating outside your component</a></p>\n\n<p>It recommends grabbing a reference <code>history = createHistory()</code> and calling <code>replaceState</code> on that.</p>\n\n<blockquote>\n  <p><strong>React-Router 0.13.x</strong> Answer</p>\n</blockquote>\n\n<p>I got into the same problem and could only find the solution with the Navigation mixin that comes with react-router.</p>\n\n<p>Here's how I did it</p>\n\n<pre><code>import React from 'react';\nimport {Navigation} from 'react-router';\n\nlet Authentication = React.createClass({\n  mixins: [Navigation],\n\n  handleClick(e) {\n    e.preventDefault();\n\n    this.transitionTo('/');\n  },\n\n  render(){\n    return (&lt;div onClick={this.handleClick}&gt;Click me!&lt;/div&gt;);\n  }\n});\n</code></pre>\n\n<p>I was able to call <code>transitionTo()</code> without the need to access <code>.context</code></p>\n\n<p>Or you could try the fancy ES6 <code>class</code></p>\n\n<pre><code>import React from 'react';\n\nexport default class Authentication extends React.Component {\n  constructor(props) {\n    super(props);\n    this.handleClick = this.handleClick.bind(this);\n  }\n\n  handleClick(e) {\n    e.preventDefault();\n\n    this.context.router.transitionTo('/');\n  }\n\n  render(){\n    return (&lt;div onClick={this.handleClick}&gt;Click me!&lt;/div&gt;);\n  }\n}\n\nAuthentication.contextTypes = {\n  router: React.PropTypes.func.isRequired\n};\n</code></pre>\n\n<blockquote>\n  <p>Note that if you're using <strong>Redux</strong> there is another project called\n  <a href=\"https://github.com/reactjs/react-router-redux\">React-Router-Redux</a> that gives you\n  redux bindings for ReactRouter. Somewhat the same approach that\n  <a href=\"https://github.com/rackt/react-redux\">React-Redux</a> does</p>\n</blockquote>\n"
+  },
+  {
+    "owner": {
+      "reputation": 156,
+      "user_id": 5431545,
+      "user_type": "registered",
+      "profile_image": "https://lh3.googleusercontent.com/-6ADkP-1Q4TU/AAAAAAAAAAI/AAAAAAAAABM/yWacKGRnYbQ/photo.jpg?sz=128",
+      "display_name": "Алексей Володько",
+      "link": "http://stackoverflow.com/users/5431545/%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b5%d0%b9-%d0%92%d0%be%d0%bb%d0%be%d0%b4%d1%8c%d0%ba%d0%be"
+    },
+    "up_vote_count": 9,
+    "is_accepted": false,
+    "score": 9,
+    "last_activity_date": 1458392390,
+    "creation_date": 1458392390,
+    "answer_id": 36102045,
+    "question_id": 31079081,
+    "body": "<p>For this one, who does not control the server side and because of this is using hash router v2:</p>\n\n<p>Place your <a href=\"https://github.com/reactjs/react-router/issues/1967\">history</a> into separate file (e.g. app_history.js ES6):</p>\n\n<pre><code>import { useRouterHistory } from 'react-router'\nimport { createHashHistory } from 'history'\nconst appHistory = useRouterHistory(createHashHistory)({ queryKey: false });\n\nexport default appHistory;\n</code></pre>\n\n<p>And use it everywhere!</p>\n\n<p>Your entry point for react-router (app.js ES6):</p>\n\n<pre><code>import React from 'react'\nimport { render } from 'react-dom'\nimport { Router, Route, Redirect } from 'react-router'\nimport appHistory from './app_history'\n...\nconst render((\n  &lt;Router history={appHistory}&gt;\n  ...\n  &lt;/Router&gt;\n), document.querySelector('[data-role=\"app\"]'));\n</code></pre>\n\n<p>Your navigation inside any component (ES6):</p>\n\n<pre><code>import appHistory from '../app_history'\n...\najaxLogin('/login', (err, data) =&gt; {\n  if (err) {\n    console.error(err); // login failed\n  } else {\n    // logged in\n    appHistory.replace('/dashboard'); // or .push() if you don't need .replace()\n  }\n})\n</code></pre>\n"
+  },
+  {
+    "owner": {
+      "reputation": 2516,
+      "user_id": 1830623,
+      "user_type": "registered",
+      "accept_rate": 57,
+      "profile_image": "https://www.gravatar.com/avatar/8cc2ef0e1b8c7cc374b3a8b3898c85cf?s=128&d=identicon&r=PG",
+      "display_name": "Bobby",
+      "link": "http://stackoverflow.com/users/1830623/bobby"
+    },
+    "up_vote_count": 177,
+    "is_accepted": true,
+    "score": 176,
+    "last_activity_date": 1458339132,
+    "last_edit_date": 1458339132,
+    "creation_date": 1453149134,
+    "answer_id": 34863577,
+    "question_id": 31079081,
+    "body": "<p>for the most recent release (<code>v2.0.0-rc5</code>), the recommended navigation method is by directly pushing onto the history singleton. You can see that in action <a href=\"https://github.com/rackt/react-router/blob/master/docs/guides/NavigatingOutsideOfComponents.md\">here</a>. Relevant excerpt:</p>\n\n<pre><code>import { browserHistory } from './react-router'\nbrowserHistory.push('/some/path')\n</code></pre>\n\n<p>If using the newer react-router API, you need to make use of the <code>history</code> from <code>this.props</code> when inside of components so:</p>\n\n<pre><code>this.props.history.push('/some/path');\n</code></pre>\n\n<p>It also offers <code>pushState</code> but that is deprecated per logged warnings.</p>\n\n<p>If using <code>react-router-redux</code>, it offers a <code>push</code> function you can dispatch like so:</p>\n\n<pre><code>import { push } from 'react-router-redux';\nthis.props.dispatch(push('/some/path'));\n</code></pre>\n\n<p>However this may be only to change the URL not actually navigate to the page.</p>\n"
+  },
+  {
+    "owner": {
+      "reputation": 574,
+      "user_id": 132444,
+      "user_type": "registered",
+      "accept_rate": 73,
+      "profile_image": "https://www.gravatar.com/avatar/1f2a7b1b49ba57c11f478189bad814e7?s=128&d=identicon&r=PG",
+      "display_name": "Alex Miller",
+      "link": "http://stackoverflow.com/users/132444/alex-miller"
+    },
+    "up_vote_count": 14,
+    "is_accepted": false,
+    "score": 14,
+    "last_activity_date": 1453495617,
+    "creation_date": 1453495617,
+    "answer_id": 34955668,
+    "question_id": 31079081,
+    "body": "<p>Here's how you do this with <a href=\"https://github.com/rackt/react-router/blob/master/upgrade-guides/v2.0.0.md\"><code>react-router v2.0.0</code></a> with <a href=\"http://babeljs.io/blog/2015/06/07/react-on-es6-plus/\">ES6</a>. <code>react-router</code> has moved away from mixins.</p>\n\n<pre><code>import React from 'react';\n\nexport default class MyComponent extends React.Component {\n  navigateToPage = () =&gt; {\n    this.context.router.push('/my-route')\n  };\n\n  render() {\n    return (\n      &lt;button onClick={this.navigateToPage}&gt;Go!&lt;/button&gt;\n    );\n  }\n}\n\nMyComponent.contextTypes = {\n  router: React.PropTypes.object.isRequired\n}\n</code></pre>\n"
+  },
+  {
+    "owner": {
+      "reputation": 763,
+      "user_id": 1505411,
+      "user_type": "registered",
+      "accept_rate": 50,
+      "profile_image": "https://www.gravatar.com/avatar/61848a23c12b4a6dea12ed58a64f32be?s=128&d=identicon&r=PG",
+      "display_name": "Qiming",
+      "link": "http://stackoverflow.com/users/1505411/qiming"
+    },
+    "up_vote_count": 8,
+    "is_accepted": false,
+    "score": 8,
+    "last_activity_date": 1443048501,
+    "last_edit_date": 1443048501,
+    "creation_date": 1435644883,
+    "answer_id": 31130888,
+    "question_id": 31079081,
+    "body": "<blockquote>\n  <p><strong>Warning:</strong> this answer covers only ReactRouter versions before 1.0</p>\n  \n  <p>I will update this answer with 1.0.0-rc1 use cases after!</p>\n</blockquote>\n\n<p>You can do this without mixins too.</p>\n\n<pre><code>let Authentication = React.createClass({\n  contextTypes: {\n    router: React.PropTypes.func\n  },\n  handleClick(e) {\n    e.preventDefault();\n    this.context.router.transitionTo('/');\n  },\n  render(){\n    return (&lt;div onClick={this.handleClick}&gt;Click me!&lt;/div&gt;);\n  }\n});\n</code></pre>\n\n<p>The gotcha with contexts is that it is not accessible unless you define the <code>contextTypes</code> on the class.</p>\n\n<p>As for what is context, it is an object, like props, that are passed down from parent to child, but it is passed down implicitly, without having to redeclare props each time. See <a href=\"https://www.tildedave.com/2014/11/15/introduction-to-contexts-in-react-js.html\">https://www.tildedave.com/2014/11/15/introduction-to-contexts-in-react-js.html</a></p>\n"
+  }
+]
+
+export default {
+  questions: questions,
+  answers: answers
+}
