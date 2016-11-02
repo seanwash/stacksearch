@@ -1,7 +1,3 @@
-// Example of a functional stateless component
-// where this component is purely presentation
-// and has no internal methods or state
-
 import React, { Component } from 'react'
 
 export default class Answer extends Component {

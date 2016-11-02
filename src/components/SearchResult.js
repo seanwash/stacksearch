@@ -1,15 +1,32 @@
-// Example of a functional stateless component
-// where this component is purely presentation
-// and has no internal methods or state
-
 import React, { Component } from 'react'
 import store from '../store'
+import AnswerList from './AnswerList'
+import Modal from 'react-modal'
 
 export default class SearchResult extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      viewingAnswer: false
+    }
+
+    this.closeModal = this.closeModal.bind(this)
+  }
+
   viewAnswers = () => {
-    console.log(this);
     store.setSelectedQuestion(this.props.id)
     store.fetchAnswers()
+
+    this.setState({
+      viewAnswers: true
+    })
+  }
+
+  closeModal () {
+    this.setState({
+      viewAnswers: false
+    })
   }
 
   render () {
@@ -31,10 +48,19 @@ export default class SearchResult extends Component {
           </div>
 
           <button
-              type="button"
-              onClick={this.viewAnswers}
-              >View Answers</button>
+            type="button"
+            onClick={this.viewAnswers}
+          >View Answers</button>
         </div>
+
+        <Modal isOpen={this.state.viewAnswers}>
+          <button
+            type="button"
+            onClick={this.closeModal}
+          >Close</button>
+
+          <AnswerList />
+        </Modal>
       </article>
     )
   }
