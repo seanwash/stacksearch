@@ -28,7 +28,7 @@ module.exports = {
   },
 
   unsubscribe (callback) {
-    emitter.off('update', callback)
+    emitter.removeListener('update', callback)
   },
 
 
